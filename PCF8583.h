@@ -47,14 +47,16 @@
 
 */
 
+#include "Arduino.h"
+#include "Wire.h"
+
+
 #ifndef PCF8583_H
 #define PCF8583_H
 
-#include <WProgram.h>
-#include <../Wire/Wire.h>
-
 class PCF8583 {
     int address;
+	
   public:
     int second;
     int minute;
@@ -70,6 +72,5 @@ class PCF8583 {
     int bcd_to_byte(byte bcd);
     byte int_to_bcd(int in);
 };
-
 
 #endif  //PCF8583_H
