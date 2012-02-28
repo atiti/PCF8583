@@ -35,7 +35,7 @@ PCF8583::PCF8583(int device_address) {
 }
 
 
-void PCF8583::get_time(){
+void PCF8583::getTime(){
 	Wire.beginTransmission(address);
 	Wire.write((byte)0xC0);	// Stop counting, don't mask
 	Wire.endTransmission();
@@ -67,7 +67,7 @@ void PCF8583::get_time(){
 }
 
 
-void PCF8583::set_time() {
+void PCF8583::setTime() {
 	Wire.beginTransmission(address);
 	Wire.write((byte)0xC0);   // stop counting, don't mask
 	Wire.endTransmission();
@@ -90,11 +90,11 @@ void PCF8583::set_time() {
 }
 
 
-int PCF8583::bcd_to_byte(byte bcd) {
+int PCF8583::bcdToByte(byte bcd) {
 	return ((bcd >> 4) * 10) + (bcd & 0x0f);
 }
 
 
-byte PCF8583::int_to_bcd(int in) {
+byte PCF8583::intToBcd(int in) {
 	return ((in / 10) << 4) + (in % 10);
 }
