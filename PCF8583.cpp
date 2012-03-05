@@ -45,13 +45,13 @@ void PCF8583::getTime(){
 	Wire.endTransmission();
 	Wire.requestFrom(address, 5);
 
-	second = bcd_to_byte(Wire.read());
-	minute = bcd_to_byte(Wire.read());
-	hour   = bcd_to_byte(Wire.read());
+	second = bcdToByte(Wire.read());
+	minute = bcdToByte(Wire.read());
+	hour   = bcdToByte(Wire.read());
 	byte incoming = Wire.read();				// Year/date counter
-	day    = bcd_to_byte(incoming & 0x3f);
+	day    = bcdToByte(incoming & 0x3f);
 	year   = (int)((incoming >> 6) & 0x03);		// It will only hold 4 years...
-	month  = bcd_to_byte(Wire.read() & 0x1f);	// 0 out the weekdays part
+	month  = bcdToByte(Wire.read() & 0x1f);	// 0 out the weekdays part
 
 	//  But that's not all - we need to find out what the base year is
 	//  so we can add the 2 bits we got above and find the real year
@@ -74,11 +74,11 @@ void PCF8583::setTime() {
 
 	Wire.beginTransmission(address);
 	Wire.write((byte)0x02);
-	Wire.write(int_to_bcd(second));
-	Wire.write(int_to_bcd(minute));
-	Wire.write(int_to_bcd(hour));
-	Wire.write(((byte)(year % 4) << 6) | int_to_bcd(day));
-	Wire.write(int_to_bcd(month));
+	Wire.write(intToBcd(second));
+	Wire.write(intToBcd(minute));
+	Wire.write(intToBcd(hour));
+	Wire.write(((byte)(year % 4) << 6) | intToBcd(day));
+	Wire.write(intToBcd(month));
 	Wire.endTransmission();
 
 	Wire.beginTransmission(address);
