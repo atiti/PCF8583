@@ -31,25 +31,22 @@
 
 #include "Arduino.h"
 #include "Wire.h"
+#include <Time.h>
+
+#define RTC_ADDRESS (0xA0 >> 1)
 
 
 class PCF8583 {
-    int address;
-	
   public:
-    int second;
-    int minute;
-    int hour;
-    int day;
-    int month;
-    int year;
-    int year_base;
-
-    PCF8583(int device_address);
-    void getTime();
-    void setTime();
-    int bcdToByte(byte bcd);
-    byte intToBcd(int in);
+    PCF8583();
+    static time_t get();
+    static void set(time_t t);
+    static tmElements_t getTime();
+    static void setTime(tmElements_t tm);
+    static int bcdToByte(byte bcd);
+    static byte intToBcd(int in);
 };
+
+extern PCF8583 RTC;
 
 #endif  //PCF8583_H
